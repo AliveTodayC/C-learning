@@ -1,1 +1,1 @@
-"# My c++ Game Dev Notes"
+# My personal C++ game engine development practice repo
