@@ -6,7 +6,10 @@
     ]
   },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\include",
+    "\\src"
   ],
+  "SelectedNode": "\\src\\BattleSystem.cpp",
   "PreviewInSolutionExplorer": false
 }

@@ -1,23 +1,19 @@
 //Enemy.h — 头文件（声明类和接口）
 #pragma once
-#include <string>
-#include"player.h"
-#include<vector>
-#include<iostream>
-#include<algorithm>
+#include"BattleHelper.h"
 
 class Team
 {
 private:
-	std::vector<player> members;
+	std::vector<Player> members;
 
 public:
 	//构造函数
 	Team();
-	void add(const player& p);
+	void add(const Player& p);
 	void print_team()const;
 	void remove_dead();
 	bool is_defeated()const;
-	std::vector<player>& get_members();
+	std::vector<Player>& get_members();
 }
-
+;

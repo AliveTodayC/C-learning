@@ -1,7 +1,7 @@
 //Player.h — 头文件（声明类和接口）
 #pragma once
 #include <string>
-class player	
+class Player	
 {
 private:
 	std::string name;
@@ -11,7 +11,7 @@ private:
 
 public:
 	//构造函数
-	player(const std::string &n, int hp, int Lv, int dm);
+	Player(const std::string &n, int hp, int Lv, int dm);
 	//成员函数
 	void print_info ()const;
 	void take_damage(int damage);
@@ -22,6 +22,6 @@ public:
 	int get_health()const;
 	int get_level()const;
 	int get_damage()const;
-	void attack(player& target);
+	void attack(Player& target);
 };
 

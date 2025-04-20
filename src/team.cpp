@@ -1,18 +1,18 @@
 #include"Team.h"
-
+//构造函数
 Team::Team()
 {
 	members = {};
 }
-
-void Team::add(const player& p)
+//成员函数
+void Team::add(const Player& p)
 {
 	members.push_back(p);
 }
 
 void Team::print_team() const
 {
-	for (const player& e : members)
+	for (const Player& e : members)
 	{
 		std::cout << e.get_name() << "还剩下" << e.get_health()<<std::endl;
 	}
@@ -22,7 +22,7 @@ void Team::remove_dead()
 {
 	members.erase(
 		std::remove_if(members.begin(), members.end(),
-			[](const player& e) {return e.is_dead(); })
+			[](const Player& e) {return e.is_dead(); })
 	);
 }
 bool Team::is_defeated() const
@@ -30,7 +30,7 @@ bool Team::is_defeated() const
 	return members.empty();
 }
 
-std::vector<player>& Team::get_members()
+std::vector<Player>& Team::get_members()
 {
 	return	members;
 }

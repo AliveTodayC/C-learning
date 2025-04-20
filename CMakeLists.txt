@@ -14,8 +14,9 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/player.cpp
-    "src/team.cpp"
+    "src/Team.cpp"
+    src/BattleSystem.cpp
 )
 
 # 构建可执行文件
-add_executable(CppGame ${SOURCES})
+add_executable(CppGame ${SOURCES} "include/BattleHelper.h")
