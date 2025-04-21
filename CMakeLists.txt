@@ -19,4 +19,4 @@ set(SOURCES
 )
 
 # 构建可执行文件
-add_executable(CppGame ${SOURCES} "include/BattleHelper.h")
+add_executable(CppGame ${SOURCES} "include/BattleHelper.h" "src/BattleHelper.cpp")

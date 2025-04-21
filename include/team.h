@@ -1,6 +1,9 @@
 //Enemy.h — 头文件（声明类和接口）
 #pragma once
-#include"BattleHelper.h"
+#include"Player.h"
+#include<vector>
+#include<iostream>
+#include<algorithm>
 
 class Team
 {
@@ -14,6 +17,6 @@ public:
 	void print_team()const;
 	void remove_dead();
 	bool is_defeated()const;
-	std::vector<Player>& get_members();
+    std::vector<Player>& get_members();
 }
 ;

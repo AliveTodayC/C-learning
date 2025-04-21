@@ -21,36 +21,25 @@ bool BattleSystem::is_over()const
 
 void BattleSystem::run_round()
 {
-	//不考虑出手权先后，默认主角团先攻
-	for (Player& h : hero.get_members())
-	{
-		Player_attack_all(h, enemy.get_members());
-		remove_dead(enemy.get_members());
-		if (enemy.is_defeated())
-			break;
-	}
-	for (Player& e : enemy.get_members())
-	{
-		Player_attack_all(e, hero.get_members());
-		remove_dead(hero.get_members());
-		if (hero.is_defeated())
-			break;
-	}
+	////不考虑出手权先后，默认主角团先攻
+	team_attack(hero, enemy);
+	team_attack(enemy, hero);
+	print_battle_state(hero, enemy);
 }
 
-void BattleSystem::report()
+void BattleSystem::report()const
 {
 	//不考虑平局和时间限制的情况
 	if (enemy.is_defeated())
 	{
 		std::cout << "敌人全灭，战斗胜利" << std::endl;
-		for (Player& const h : hero.get_members())
+		for (Player& h : hero.get_members())
 			h.print_info();
 	}
 	else
 	{
 		std::cout << "您的队员全部阵亡，战斗失败" << std::endl;
-		for (Player& const e : enemy.get_members())
+		for (Player& e : enemy.get_members())
 			e.print_info();
 	}
 }

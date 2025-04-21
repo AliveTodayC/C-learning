@@ -13,6 +13,6 @@ public:
 	void run();
 	void run_round();
 	bool is_over() const;
-	void report();
+	void report()const;
 
 };

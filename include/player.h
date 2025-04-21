@@ -1,6 +1,8 @@
 //Player.h — 头文件（声明类和接口）
 #pragma once
 #include <string>
+#include<iostream>
+
 class Player	
 {
 private:

@@ -1,6 +1,5 @@
 //2. Player.cpp — 类定义文件
  #include"Player.h"
-#include<iostream>
 
 
 Player:: Player(const std::string &n, int hp, int Lv, int dm) :
