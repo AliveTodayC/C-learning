@@ -1,4 +1,8 @@
 #include"Team.h"
+#include<iostream>
+#include"Player.h"
+#include<algorithm>
+
 //¹¹Ôìº¯Êý
 Team::Team()
 {

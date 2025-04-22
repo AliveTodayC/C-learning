@@ -16,7 +16,7 @@ set(SOURCES
     src/player.cpp
     "src/Team.cpp"
     src/BattleSystem.cpp
-)
+ "include/Skill.h" "src/Skill.cpp")
 
 # 构建可执行文件
-add_executable(CppGame ${SOURCES} "include/BattleHelper.h" "src/BattleHelper.cpp")
+add_executable(CppGame ${SOURCES} "include/BattleHelper.h" "src/BattleHelper.cpp" "include/Skill.h" "src/Skill.cpp")

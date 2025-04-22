@@ -1,9 +1,10 @@
 //2. Player.cpp — 类定义文件
  #include"Player.h"
+#include"Skill.h"
 
 
-Player:: Player(const std::string &n, int hp, int Lv, int dm) :
-	name(n), health(hp), level(Lv), damage(dm){}
+Player:: Player(const std::string &n, int hp, int Lv, int dm,Skill& sk) :
+	name(n), health(hp), level(Lv), damage(dm),skill(sk){}
 
 //访问器函数，安全访问自身数据
 std::string Player::get_name()const
@@ -45,8 +46,18 @@ bool Player::is_dead()const
 
 void Player::attack(Player& target)
 {
-	std::cout << name << "攻击了" << target.get_name() << std::endl;
-	target.health -= damage;
+	if (skill.is_heal_skill())
+	{
+		std::cout << name << "使用技能" << skill.get_name()
+			<< "治疗" << target.get_name()
+			<< skill.get_damage() << "点血量" << std::endl;
+		target.health += skill.get_damage();
+		return;
+	}
+	std::cout << name << "使用技能对" << target.get_name()
+		<< "造成了" << skill.get_damage() << "点伤害\n";
+	//target.health -= damage;
+	target.take_damage(skill.get_damage());
 	std::cout << target.get_name() << "还剩下" << target.get_health() << std::endl;
 }
 

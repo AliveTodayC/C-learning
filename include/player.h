@@ -2,6 +2,7 @@
 #pragma once
 #include <string>
 #include<iostream>
+#include"Skill.h"
 
 class Player	
 {
@@ -10,10 +11,11 @@ private:
 	int health;
 	int level;
 	int damage;
+	Skill skill;
 
 public:
 	//构造函数
-	Player(const std::string &n, int hp, int Lv, int dm);
+	Player(const std::string &n, int hp, int Lv, int dm,Skill& sk);
 	//成员函数
 	void print_info ()const;
 	void take_damage(int damage);

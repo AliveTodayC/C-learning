@@ -1,5 +1,5 @@
 #pragma once
-#include"BattleHelper.h"
+#include"Team.h"
 class BattleSystem
 {
 private:
@@ -13,6 +13,6 @@ public:
 	void run();
 	void run_round();
 	bool is_over() const;
-	void report()const;
+	void report();
 
 };

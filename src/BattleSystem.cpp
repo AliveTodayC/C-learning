@@ -1,4 +1,8 @@
 #include"BattleSystem.h"
+#include"Player.h"
+#include"Team.h"
+#include<iostream>
+#include"BattleHelper.h"
 
 //构造函数
 BattleSystem::BattleSystem(Team& h, Team& e) :
@@ -27,7 +31,7 @@ void BattleSystem::run_round()
 	print_battle_state(hero, enemy);
 }
 
-void BattleSystem::report()const
+void BattleSystem::report()
 {
 	//不考虑平局和时间限制的情况
 	if (enemy.is_defeated())
