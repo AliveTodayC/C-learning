@@ -7,8 +7,8 @@
 int main() {
 	Team heroTeam;
 	//为什么const std;:string可以写寒冰术，而std::string写寒冰斩会报错
-	Skill frost("寒冰斩", 35, false, false);
-	Skill heal("治愈术", 20, false, true);
+	Skill frost("寒冰斩", 35, false, false,4);
+	Skill heal("治愈术", 20, false, true,3);
 
 	heroTeam.add(Player("Claude Yin", 100, 5, 10, frost));
 	heroTeam.add(Player("Yuki", 80, 4, 15, heal));

@@ -15,7 +15,7 @@ private:
 
 public:
 	//构造函数
-	Player(const std::string &n, int hp, int Lv, int dm,Skill& sk);
+	Player(const std::string &n, int hp, int Lv, int dm,const Skill& sk);
 	//成员函数
 	void print_info ()const;
 	void take_damage(int damage);

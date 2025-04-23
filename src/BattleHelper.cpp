@@ -47,7 +47,7 @@ void print_battle_state(  Team& hero, Team& enemy)
 	std::cout << "\n====== 当前状态报告 ======\n";
 	std::cout << "[主角队列]" << std::endl;
 	for (const Player& player : hero.get_members()) {
-		player.print_info();9
+		player.print_info();
 	}
 
 	std::cout << "[敌人队列]" << std::endl;

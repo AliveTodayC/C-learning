@@ -3,7 +3,7 @@
 #include"Skill.h"
 
 
-Player:: Player(const std::string &n, int hp, int Lv, int dm,Skill& sk) :
+Player:: Player(const std::string &n, int hp, int Lv, int dm,const Skill& sk) :
 	name(n), health(hp), level(Lv), damage(dm),skill(sk){}
 
 //访问器函数，安全访问自身数据
@@ -46,18 +46,31 @@ bool Player::is_dead()const
 
 void Player::attack(Player& target)
 {
-	if (skill.is_heal_skill())
+	if (skill.can_cast())
 	{
-		std::cout << name << "使用技能" << skill.get_name()
-			<< "治疗" << target.get_name()
-			<< skill.get_damage() << "点血量" << std::endl;
-		target.health += skill.get_damage();
+		if (skill.is_heal_skill())
+		{
+			std::cout << name << "使用技能" << skill.get_name()
+				<< "治疗" << target.get_name()
+				<< skill.get_damage() << "点血量" << std::endl;
+			target.health += skill.get_damage();
+		}
+		else
+		{
+			std::cout << name << "使用技能对" << target.get_name()
+				<< "造成了" << skill.get_damage() << "点伤害\n";
+			//target.health -= damage;
+			target.take_damage(skill.get_damage());
+			std::cout << target.get_name() << "还剩下" << target.get_health() << std::endl;
+		}
+		skill.reset_cooldown();
 		return;
 	}
-	std::cout << name << "使用技能对" << target.get_name()
-		<< "造成了" << skill.get_damage() << "点伤害\n";
-	//target.health -= damage;
-	target.take_damage(skill.get_damage());
-	std::cout << target.get_name() << "还剩下" << target.get_health() << std::endl;
+	else
+	{
+		target.take_damage(get_damage());	
+		//目前假设一次攻击就是一个回合,所以可以不需要回合变量去控制冷却
+		skill.reset_cooldown();
+	}
 }
 
