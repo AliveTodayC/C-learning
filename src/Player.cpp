@@ -1,6 +1,7 @@
 //2. Player.cpp — 类定义文件
  #include"Player.h"
 #include"Skill.h"
+#include<vector>
 
 
 Player:: Player(const std::string &n, int hp, int Lv, int dm,const Skill& sk) :
@@ -23,6 +24,11 @@ int Player::get_level()const
 {
 	return level;
 }
+Skill Player::get_skill()const
+{
+	return skill;
+}
+
 //成员函数，定义类的行为
 void Player:: print_info() const
 {
@@ -53,7 +59,7 @@ void Player::attack(Player& target)
 			std::cout << name << "使用技能" << skill.get_name()
 				<< "治疗" << target.get_name()
 				<< skill.get_damage() << "点血量" << std::endl;
-			target.health += skill.get_damage();
+			target.heal_player(skill.get_damage());
 		}
 		else
 		{
@@ -71,6 +77,19 @@ void Player::attack(Player& target)
 		target.take_damage(get_damage());	
 		//目前假设一次攻击就是一个回合,所以可以不需要回合变量去控制冷却
 		skill.reset_cooldown();
+	}
+}
+
+void Player::use_skill_on(Player& t)
+{
+	attack(t);
+}
+
+void Player::use_skill_on(std::vector<Player>& t)
+{
+	for (Player& enemy : t)
+	{
+		attack(enemy);
 	}
 }
 

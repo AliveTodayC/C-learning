@@ -11,12 +11,34 @@ void team_attack(Team& attacker, Team& targets)
 		return;
 	for ( Player& atker : attacker.get_members())
 	{
-		//改变0改变攻击对象.加随机数实现随机攻击，指定数实现指定攻击
-		Player& target = targets.get_members()[0];
-		atker.attack(target);
-		//如果攻击对象死亡,删除,数组0的位置会变成数组1的元素
-		if (target.is_dead())
+		switch (atker.get_skill().get_skill_type()) 
+		{
+		case SkillTargetType::EnemySingle:
+			//改变0改变攻击对象.加随机数实现随机攻击，后续可以把0换成参数从而指定攻击
+			atker.attack(targets.get_members()[0]);		
+			//如果攻击对象死亡,删除,数组0的位置会变成数组1的元素
+		if (targets.get_members()[0].is_dead())
 			targets.remove_dead();
+			break;
+		case SkillTargetType::EnemyAll:
+			for (Player& e : targets.get_members())
+			{
+				atker.attack(e);
+			}
+			targets.remove_dead();
+			break;
+		case SkillTargetType::AllSingle:
+			atker.attack(attacker.get_members()[0]);
+			break;
+		case SkillTargetType::AllALll:
+			for (Player& partner : attacker.get_members())
+			{
+				atker.attack(partner);
+			}
+			break;
+		case SkillTargetType::self:
+			atker.attack(atker);
+		}
 		//如果敌人全灭,战斗提前结束
 		if (attacker.is_defeated())
 			break;

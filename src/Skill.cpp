@@ -1,7 +1,8 @@
 #include"Skill.h"
 
-Skill::Skill(const std::string& n,int dm,bool aoe,bool heal,int cd_max,int cd):
-	name(n),damage(dm),is_aoe(aoe),is_heal(heal),cooldown(cd),cooldown_max(cd_max){ }
+Skill::Skill(const std::string& n,int dm,bool aoe,bool heal,int cd_max,int cd,SkillTargetType& st):
+	name(n),damage(dm),is_aoe(aoe),is_heal(heal),
+	cooldown(cd),cooldown_max(cd_max),skill_type(st){ }
 
 std::string Skill::get_name()const
 {
@@ -35,4 +36,9 @@ void Skill::reduce_cooldown()
 void Skill::reset_cooldown()
 {
 	cooldown = cooldown_max;
+}
+
+SkillTargetType Skill::get_skill_type()const
+{
+	return skill_type;
 }
