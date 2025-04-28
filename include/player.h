@@ -10,6 +10,7 @@ class Player
 private:
 	std::string name;
 	int health;
+	int max_health;
 	int level;
 	int damage;
 	Skill skill;
@@ -25,11 +26,19 @@ public:
 	Skill get_skill()const;
 	//³ÉÔ±º¯Êý
 	void print_info()const;
-	void take_damage(int damage);
-	void heal_player(int amount);
+	void take_damage(const int damage);
+	void heal_player(const int amount);
 	bool is_dead()const;
+
 	void attack(Player& target);
+	void attack(std::vector<Player>& t);
+
 	void use_skill_on(Player& t);
 	void use_skill_on(std::vector<Player>& t);
+
+	void use_basic_attack_on(Player& t);
+	void use_basic_attack_on(std::vector<Player>& t);
+
+	bool should_use_skill(const std::vector<Player>& enemy)const;
 };
 

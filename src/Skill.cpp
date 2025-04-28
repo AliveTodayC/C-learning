@@ -1,6 +1,6 @@
 #include"Skill.h"
 
-Skill::Skill(const std::string& n,int dm,bool aoe,bool heal,int cd_max,int cd,SkillTargetType& st):
+Skill::Skill(const std::string& n,int dm,bool aoe,bool heal,int cd_max,int cd,SkillTargetType st):
 	name(n),damage(dm),is_aoe(aoe),is_heal(heal),
 	cooldown(cd),cooldown_max(cd_max),skill_type(st){ }
 
