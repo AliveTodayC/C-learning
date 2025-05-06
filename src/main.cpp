@@ -4,6 +4,7 @@
 #include"Player.h"
 
 
+
 int main() {
 	Team heroTeam;
 	//为什么const std;:string可以写寒冰术，而std::string写寒冰斩会报错

@@ -2,10 +2,20 @@
  #include"Player.h"
 #include"Skill.h"
 #include<vector>
+#include<random>
 
+//随机数获取函数
+int get_random_number(int min, int max)
+{
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	std::uniform_int_distribution<>	dis(min, max);
+	return dis(gen);
+}
 
-Player:: Player(const std::string &n, int hp, int Lv, int dm,const Skill& sk) :
-	name(n), health(hp), max_health(hp),level(Lv), damage(dm),skill(sk){}
+Player:: Player(const std::string &n, int hp, int Lv, int dm,const Skill& sk,StrategyType st) :
+	name(n), health(hp), max_health(hp),level(Lv), damage(dm),
+	skill(sk),strategy(st),defending(false),escaped(false){}
 
 //访问器函数，安全访问自身数据
 std::string Player::get_name()const
@@ -39,7 +49,10 @@ void Player:: print_info() const
 }
 void Player::take_damage(int damage)
 {
-	health -= damage;
+	if (is_defending())
+		health -= damage / 2;
+	else
+		health -= damage;
 }//受到外界伤害，扣血，因为damage是敌人施加的伤害，不是调用函数的对象的damage，所以我认为应该保留参数damage
 void Player::heal_player(const int amount)
 {
@@ -50,7 +63,77 @@ bool Player::is_dead()const
 	return health <=0;
 }
 
-//攻击分普工和技能，技能分伤害和治疗，对象分群体和单体
+//行为判断
+void Player::take_action(Player& target)
+{
+	switch (strategy)
+	{
+	case StrategyType::Aggressive:
+	{
+		attack(target);
+		break;
+	}
+
+	case StrategyType::Defensive:
+	{
+		if (health < max_health * 0.5)
+		{
+			if (flee())
+			{
+
+				std::cout << name << "血量过低，逃跑成功。\n";
+				return;
+			}
+			else
+			{
+				defend();
+				std::cout << name << "进入防御状态，降低受到伤害。\n";
+				return;
+			}
+		}
+		attack(target);
+		break;
+	}
+	case StrategyType::Random:
+	{
+		int rd=get_random_number(0, 2);
+		if (rd == 0)
+		{
+			std::cout << name << " 选择了攻击" << std::endl;
+			attack(target);
+		}
+		if (rd == 1)
+		{
+			defend();
+			std::cout << name << " 选择了防御" << std::endl;
+		}
+		else
+		{
+			flee();
+			std::cout << name << " 选择了逃跑" << std::endl;
+		}
+		break;
+	}
+	}
+	
+	;
+}
+void Player::take_action(std::vector<Player>& target)
+{
+	if (health < max_health * 0.3 && flee())
+	{
+		std::cout << name << "血量过低，逃跑成功。\n";
+		return;
+	}
+	if (health < 0.5 * max_health)
+	{
+		defend();
+		std::cout << name << "进入防御状态，降低受到伤害。\n";
+	}
+	attack(target);
+}
+
+//战斗行为，攻击分普工和技能，技能分伤害和治疗，对象分群体和单体
 void Player::attack(Player& target)
 {
 	std::vector<Player> targets = { target };
@@ -152,9 +235,41 @@ bool Player::should_use_skill(const std::vector<Player>&enemy)const
 	if (skill.is_aoe_attack() && enemy.size() >= 2)
 	{
 		std::cout << name << "技能是aoe且敌方数量大于二,释放了技能[" << skill.get_name() << "」。\n";
-	}
 		return true;
+	}
 
 	std::cout << name << " 使用普通攻击，因为技能冷却中或无适合释放时机。\n";
 	return false;
+}
+
+//防御状态函数
+void Player::defend()
+{
+	defending = 1;
+}
+
+bool Player::is_defending()const
+{
+	return defending;
+}
+
+void Player::reset_defend_status()
+{
+	defending = 0;
+}
+
+//逃跑函数
+bool Player::flee()
+{
+	if (get_random_number(0, 99) % 100 <= 35)
+	{
+		escaped = true;
+		return true;
+	}
+	return false;
+}
+
+bool Player::has_flee()
+{
+	return escaped;
 }
